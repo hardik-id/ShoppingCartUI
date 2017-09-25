@@ -1,0 +1,12 @@
+<h2>Cart: </h2>
+<ul class="list-group">
+  <ng-container *ngFor="let p of cartDetails; let i = index">
+  <li class="list-group-item" *ngIf="p.quantity>0">{{p.product.name}}
+    <span class="float-right">
+      Qty: {{p.quantity}}
+      <i class="fa fa-plus" aria-hidden="true" (click)="modifyQuantity(p, 1, i)"></i>
+      <i class="fa fa-minus" aria-hidden="true" (click)="modifyQuantity(p, -1, i)"></i>
+    </span>
+  </li>
+  </ng-container>
+</ul>

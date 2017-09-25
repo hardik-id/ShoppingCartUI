@@ -1,0 +1,8 @@
+<h2>Product List: </h2>
+
+<ul class="list-group product-master">
+  <li class="list-group-item" *ngFor="let p of products" [ngClass]="p.selected?'active':''"
+  (click)="p.selected = !p.selected">{{p.name}}</li>
+</ul>
+<br>
+<button class="btn btn-primary" (click)="updateCart()">Add</button>

@@ -1,0 +1,4 @@
+ul.product-master > li:hover:not(.active) {
+  background-color: gainsboro;
+}
+
