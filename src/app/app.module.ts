@@ -6,6 +6,8 @@ import { CartComponent } from './cart/cart.component';
 import { ProductsComponent } from './products/products.component';
 import {HttpModule} from '@angular/http';
 import {SharedModule} from './shared/shared.module';
+import {TodoComponent} from './todo/todo/todo.component';
+import {TodoModule} from './todo/todo.module';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,8 @@ import {SharedModule} from './shared/shared.module';
   imports: [
     BrowserModule,
     HttpModule,
-    SharedModule
+    SharedModule,
+    TodoModule
   ],
   providers: [],
   bootstrap: [AppComponent]

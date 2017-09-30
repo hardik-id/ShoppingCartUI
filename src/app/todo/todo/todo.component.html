@@ -1,0 +1,102 @@
+<h1>TO-DO Application</h1>
+<div class="row">
+  <div class="col-lg-1">
+    <label for="name">Task</label>
+  </div>
+  <div class="col-lg-8">
+    <div class="form-group">
+      <input [(ngModel)]="newTask.taskDetails" type="text" class="form-control" id="name" placeholder="Task">
+    </div>
+  </div>
+  <div class="col-lg-3">
+    <button type="submit" class="btn btn-primary" (click)="addToList();">Add to List</button>
+  </div>
+</div>
+<hr>
+<div>
+  <div class="panel panel-primary">
+    <div class="panel-heading"><h3 class="panel-title"> TODO List</h3></div>
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th></th>
+        <th>ID</th>
+        <th>Task</th>
+        <th>Action</th>
+        <th></th>
+        <th *ngIf="tasks.length > 0"></th>
+      </tr>
+      </thead>
+
+      <tbody *ngFor="let task of tasks | active:false; let i = index;"  [ngSwitch]="task.state">
+
+      <!-- Normal Mode -->
+      <tr *ngSwitchDefault>
+        <td>
+          <i class="fa fa-square-o fa-2x check-box" aria-hidden="true" (click)="updateStatus(task, true)"></i>
+        </td>
+        <td>{{task.id}}</td>
+        <td>{{task.taskDetails}}</td>
+        <td>
+          <button type="submit" (click)="task.state='edit'" class="btn btn-primary">Edit</button>
+        </td>
+        <td>
+          <button type="button" (click)="task.state='delete'" class="btn btn-danger">Delete</button>
+        </td>
+      </tr>
+
+
+
+
+      <!-- Edit Mode -->
+      <tr *ngSwitchCase="'edit'">
+        <td>{{task.id}}</td>
+        <td><input [(ngModel)]="task.taskDetails" type="text"/></td>
+        <td>
+          <button type="submit" (click)="updateDetails(task)" class="btn btn-info">Save</button>
+        </td>
+        <td>
+        </td>
+      </tr>
+
+      <!-- Delete Mode -->
+      <tr class="danger" *ngSwitchCase="'delete'">
+        <td>
+          <i class="fa fa-square-o fa-2x check-box" aria-hidden="true" (click)="updateStatus(task, true)"></i>
+        </td>
+        <td>{{task.id}}</td>
+        <td>{{task.taskDetails}}</td>
+        <td>
+          <button type="submit" (click)="deleteTask(task)" class="btn btn-danger">Confirm Delete</button>
+        </td>
+        <td>
+          <button type="submit" (click)="task.state=''" class="btn btn-default">Cancel</button>
+        </td>
+      </tr>
+
+      </tbody>
+    </table>
+
+    <hr>
+    <h3 class="panel-title">Completed Tasks:</h3>
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th></th>
+        <th>ID</th>
+        <th>Task</th>
+      </tr>
+      </thead>
+
+      <tbody *ngFor="let task of tasks | active:true; let i = index;">
+      <!-- Normal Mode -->
+      <tr>
+        <td>
+          <i class="fa fa-check-square-o fa-2x check-box" aria-hidden="true" (click)="updateStatus(task, false)"></i>
+        </td>
+        <td>{{task.id}}</td>
+        <td>{{task.taskDetails}}</td>
+      </tbody>
+    </table>
+  </div>
+</div>

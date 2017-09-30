@@ -16,7 +16,7 @@ export class ProductsComponent implements OnInit {
               private dataService: DataService) { }
 
   ngOnInit() {
-    this.crudService.get('http://localhost:8080/product').subscribe(res => {
+    this.crudService.get('http://cart-api.semicolon.guru/product').subscribe(res => {
       this.products = res;
     });
   }

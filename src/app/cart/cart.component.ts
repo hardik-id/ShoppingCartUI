@@ -12,12 +12,13 @@ import * as _ from 'lodash';
 export class CartComponent implements OnInit {
 
   public cartDetails= [];
+  private _url = 'http://cart-api.semicolon.guru';
 
   constructor(private crudService: CrudService,
               private dataService: DataService) { }
 
   ngOnInit() {
-    this.crudService.get('http://localhost:8080/user/3/cart').subscribe(res => {
+    this.crudService.get(this._url + '/user/3/cart').subscribe(res => {
       this.cartDetails = res;
     });
 
@@ -31,7 +32,7 @@ export class CartComponent implements OnInit {
         console.log(updateProduct);
          if (updateProduct) {
            const updateQuantity = updateProduct.quantity + 1;
-          this.crudService.put('http://localhost:8080/user/3/cart/' + updateProduct.id + '?quantity=' + updateQuantity )
+          this.crudService.put(this._url + '/user/3/cart/' + updateProduct.id + '?quantity=' + updateQuantity )
             .subscribe((res) => {
             console.log(res);
             const index = _.findIndex(this.cartDetails, ['product.id', newProduct.id]);
@@ -40,7 +41,7 @@ export class CartComponent implements OnInit {
 
             });
         } else {
-           this.crudService.post('http://localhost:8080/user/3/cart/product/' + newProduct.id + '?quantity=' + 1)
+           this.crudService.post(this._url + '/user/3/cart/product/' + newProduct.id + '?quantity=' + 1)
              .subscribe( (res) => {
                console.log(res);
                this.cartDetails.push(res.json());
@@ -54,7 +55,7 @@ export class CartComponent implements OnInit {
   modifyQuantity(cartProduct, value, index) {
     console.log(index);
     const quantity = cartProduct.quantity + value;
-    this.crudService.put('http://localhost:8080/user/3/cart/product/' + cartProduct.product.id + '?quantity=' + quantity)
+    this.crudService.put(this._url + '/user/3/cart/product/' + cartProduct.product.id + '?quantity=' + quantity)
       .subscribe( (res) => {
         console.log(res);
         this.cartDetails.splice(index, 1, res.json());
